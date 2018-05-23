@@ -31,15 +31,57 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    //筛选出出声在16世纪(1500-1599)的发明家
+    //这里写条件方法,year的值必须大于1500并且小于1599
+    function isfilter(value){
+      return value.year >=1500 && value.year<=1599; 
+    }
+    //筛选完毕之后赋值给inventored
+    const inventored = inventors.filter(isfilter);
+    console.log(inventored);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    //列出发明家的名和姓的数组。
+    //筛选姓和名方法
+    function screeName(obj){
+       //定义一个新数组
+        var rObj = {};
+        //定义元素first 要带单引号
+        rObj['first'] = obj.first;
+        //定义元素lsat 要带单引号
+        rObj['last'] = obj.last;
+        //返回新数组
+        return rObj;
+    }
+    
+    var inventorsname = inventors.map(screeName);
+    console.log(inventorsname);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    //根据发明家的出生日期，按照从大到小的顺序进行排序。
+    //用a-b进行数组升序排序
+    function yaersort(a,b){
+      console.log(a,b);
+      return (a.year-b.year);
+    }
+    var inventorssort = inventors.sort(yaersort);
+    console.log(inventorssort);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    // 所有的发明家一共活了多少岁。
+    var totalYears = 0;
+    totalYears = inventors.map(inventor => inventor.passed-inventor.year).reduce(function(prev,cur){
+      return prev + cur;
+    },0);
+    console.log('发明家一共活了多少岁:'+totalYears);
+
+    const totalYearsb = inventors.reduce((total,curr) => total += (curr.passed-curr.year),0);
+    console.log('发明家一共活了多少岁:'+totalYearsb);
+
+
 
     // 5. Sort the inventors by years lived
 
