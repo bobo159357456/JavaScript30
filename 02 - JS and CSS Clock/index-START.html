@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+</head>
+<body onload="startTime()">
+
+  <div class="clock">
+    <div class="clock-face">
+      <div class="hand hour-hand"></div>
+      <div class="hand min-hand"></div>
+      <div class="hand second-hand"></div>
+    </div>
+  </div>
+  <div id="txt"></div>
+  <style>
+    html {
+      background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+      background-size:cover;
+      font-family:'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display:flex;
+      flex:1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border:20px solid white;
+      border-radius:50%;
+      margin:50px auto;
+      position: relative;
+      padding:2rem;
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+
+    .hand {
+      width:50%;
+      height:6px;
+      background:black;
+      position: absolute;
+      top:50%;
+    }
+    /*秒针旋转*/
+    .second-totate{
+      /*设置圆心*/
+      transform-origin: right;
+      transform:rotate(9deg);
+      -ms-transform:rotate(9deg); /* Internet Explorer */
+      -moz-transform:rotate(9deg); /* Firefox */
+      -webkit-transform:rotate(9deg); /* Safari 和 Chrome */
+      -o-transform:rotate(9deg); /* Opera */
+    }
+
+    /*分针旋转*/
+    .min-totate{
+      /*设置圆心*/
+      transform-origin: right;
+      transform:rotate(9deg);
+      -ms-transform:rotate(9deg); /* Internet Explorer */
+      -moz-transform:rotate(9deg); /* Firefox */
+      -webkit-transform:rotate(9deg); /* Safari 和 Chrome */
+      -o-transform:rotate(9deg); /* Opera */
+    }
+
+    /*时针旋转*/
+    .hour-totate{
+      /*设置圆心*/
+      transform-origin: right;
+      transform:rotate(9deg);
+      -ms-transform:rotate(9deg); /* Internet Explorer */
+      -moz-transform:rotate(9deg); /* Firefox */
+      -webkit-transform:rotate(9deg); /* Safari 和 Chrome */
+      -o-transform:rotate(9deg); /* Opera */
+    }
+    
+  </style>
+  <script type="text/javascript">
+  
+    function startTime()
+    {
+      var today=new Date();
+      var h=today.getHours();
+      var m=today.getMinutes();
+      var s=today.getSeconds();
+      // add a zero in front of numbers<10
+      m=checkTime(m);
+      s=checkTime(s);
+      document.getElementById('txt').innerHTML=h+":"+m+":"+s;
+      var seconddeg =(( s / 60 ) * 360)+90;
+      //这里不理解怎么计算的
+      var mindeg = ((m / 60) * 360)+((s/60)*6)+90;
+      var hourdeg = ((h/12)*360)+((m/60)*30)+90;
+      //秒针
+      var second = document.getElementsByClassName('second-hand')[0];
+      second.style.transformOrigin = "right";
+      second.style.transform = "rotate("+seconddeg+"deg)";
+      //分针
+      var min = document.getElementsByClassName('min-hand')[0];
+      min.style.transformOrigin = "right";
+      min.style.transform = "rotate("+mindeg+"deg)";
+      //时针
+      var hour = document.getElementsByClassName('hour-hand')[0];
+      hour.style.transformOrigin = "right";
+      hour.style.transform = "rotate("+hourdeg+"deg)";
+      t=setTimeout('startTime()',500);
+      //处理秒针
+    }
+    /*处理时间格式 当小于10,显示"03"*/
+    function checkTime(i)
+    {
+    if (i<10) 
+      {i="0" + i}
+      return i
+    }
+  </script>
+</body>
+</html>

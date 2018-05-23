@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scoped CSS Variables and JS</title>
+</head>
+<body>
+  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+
+  <div class="controls">
+    <label for="spacing">Spacing:</label>
+    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px" onchange="spacingChange()"
+
+    <label for="blur">Blur:</label>
+    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px" onchange="spacingChange()">
+
+    <label for="base">Base Color</label>
+    <input id="base" type="color" name="base" value="#ffc600" onchange="spacingChange()">
+  </div>
+
+  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+
+  <style>
+
+    /*
+      misc styles, nothing to d""o with CSS variables
+    */
+
+    body {
+      text-align: center;
+      background: #193549;
+      color: white;
+      font-family: 'helvetica neue', sans-serif;
+      font-weight: 100;
+      font-size: 50px;
+    }
+
+    .controls {
+      margin-bottom: 50px;
+    }
+
+    input {
+      width:100px;
+    }
+    img{
+      padding: 10px;
+      background-color: blue;
+      filter: blur(0px);
+    }
+  </style>
+
+  <script>
+      function spacingChange(){
+        var spacing = document.getElementById('spacing');
+        var blur = document.getElementById('blur');
+        var base = document.getElementById('base');
+        var img = document.getElementsByTagName('img')[0];
+        var spacingval = spacing.value+'px';
+        //注意这里的blur(0px)格式
+        var blurval = 'blur('+blur.value+'px)';
+        var baseval = base.value;
+        //设置css属性
+        img.style.setProperty('padding',spacingval);
+        img.style.setProperty('filter',blurval);
+        img.style.setProperty('background-color',baseval);
+        console.log("spacing:"+spacingval+"blur:"+blurval+"base:"+baseval);
+      }
+  </script>
+
+</body>
+</html>
