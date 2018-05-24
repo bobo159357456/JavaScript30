@@ -40,6 +40,8 @@
     const inventored = inventors.filter(isfilter);
     console.log(inventored);
 
+    const fifteen = inventors.filter(inventor => (inventor.year >= 1500)&&(inventor.year<1600));
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
     //列出发明家的名和姓的数组。
@@ -58,6 +60,9 @@
     var inventorsname = inventors.map(screeName);
     console.log(inventorsname);
 
+    const fullNames = inventors.map(inventor => inventor.first+''+inventor.last);
+    const inventorName = inventors.map(inventor => `${inventor.first}${inventor.last}`);
+
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
     //根据发明家的出生日期，按照从大到小的顺序进行排序。
@@ -68,6 +73,7 @@
     }
     var inventorssort = inventors.sort(yaersort);
     console.log(inventorssort);
+    const inventory = inventors.sort((a,b) => a.year>b.year?-1:1);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
@@ -84,18 +90,47 @@
 
 
     // 5. Sort the inventors by years lived
+    //按照发明家的年龄大小排序
+    // const inventorYear = inventors.sort(function(a,b){
+    //   var aold = a.passed-a.year;
+    //   var bold = b.passed-b.year;
+    //   return aold - bold;
+    // });
+    const inventorYear = inventors.sort((value1,value2) =>{
+      const value1Age = value1.passed - value1.year;
+      const value2Age = value2.passed - value2.year;
+      //这里?
+      // return value1Age > value2Age ? -1 : 1;
+      return value2Age - value1Age;
+    });
 
+    console.table(inventorYear);
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    //可以查豆瓣所有关键的书籍
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
-
+    //按照字母表的顺序，将人们的姓氏进行排序。
+    const sortByAlpha = people.sort((a,b) =>{
+      //a.split(', ');打印结果是 ["Beck", "Glenn"]
+      //赋值给 [aFirst,aLast] 变量
+      const [aFirst,aLast] = a.split(', ');
+      const [bFirst,bLast] = b.split(', ');
+      return (aLast > bLast) ? 1: -1;
+    });
+    console.table(sortByAlpha);
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    const SumClassData = data.reduce((obj,item)=>{
+      if(!obj[item]){
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+    },{});
+    console.log(SumClassData);
   </script>
 </body>
 </html>
